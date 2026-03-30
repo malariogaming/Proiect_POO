@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|solutionrelative:Proiect_POO\\Proiect_POO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Proiect_POO.cpp",
+              "DocumentMoniker": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp",
+              "RelativeDocumentMoniker": "Proiect_POO\\Proiect_POO.cpp",
+              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp",
+              "RelativeToolTip": "Proiect_POO\\Proiect_POO.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-03-30T08:22:44.143Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
