@@ -123,7 +123,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CargoBox.cpp" />
+    <ClCompile Include="ElevatorException.cpp" />
+    <ClCompile Include="InvalidFloorException.cpp" />
+    <ClCompile Include="ITransportable.cpp" />
+    <ClCompile Include="LogicException.cpp" />
+    <ClCompile Include="MyException.cpp" />
+    <ClCompile Include="OverweightException.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="Proiect_POO.cpp" />
+    <ClCompile Include="StandardPassenger.cpp" />
+    <ClCompile Include="VIPPassenger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CargoBox.h" />
+    <ClInclude Include="ElevatorException.h" />
+    <ClInclude Include="InvalidFloorException.h" />
+    <ClInclude Include="ITransportable.h" />
+    <ClInclude Include="LogicException.h" />
+    <ClInclude Include="MyException.h" />
+    <ClInclude Include="OverweightException.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="StandardPassenger.h" />
+    <ClInclude Include="VIPPassenger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,7 @@
+.vs/
+out/
+build/
+*.obj
+*.exe
+*.pdb
+*.sln.ghost
