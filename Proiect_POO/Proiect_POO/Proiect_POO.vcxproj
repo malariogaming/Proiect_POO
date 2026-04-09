@@ -139,6 +139,7 @@
     <ClCompile Include="IRequest.cpp" />
     <ClCompile Include="ITransportable.cpp" />
     <ClCompile Include="LogicException.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MyException.cpp" />
     <ClCompile Include="OverweightException.cpp" />
     <ClCompile Include="PassengerElevator.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="IRequest.h" />
     <ClInclude Include="ITransportable.h" />
     <ClInclude Include="LogicException.h" />
+    <ClInclude Include="MainWindow.h" />
     <ClInclude Include="MyException.h" />
     <ClInclude Include="OverweightException.h" />
     <ClInclude Include="PassengerElevator.h" />
@@ -173,6 +175,12 @@
     <ClInclude Include="Scheduler.h" />
     <ClInclude Include="StandardPassenger.h" />
     <ClInclude Include="VIPPassenger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MainWindow.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -16,6 +16,9 @@
 #include "Scheduler.h"
 #include "DatabaseManager.h"
 
+#include <QApplication>
+#include "MainWindow.h"
+
 void testareSistem() {
     std::cout << "\n--- Incepem testarea ierarhiei de exceptii ---\n" << std::endl;
 
@@ -290,7 +293,7 @@ void testSimulareDouaLifturi() {
     std::cout << "\n--- Testare finalizata ---\n" << std::endl;
 }
 
-int main()
+int main(int argc, char *argv[])
 {
     try {
         //testareSistem();
@@ -302,14 +305,17 @@ int main()
         
         //ruleazaSimulare();
         //testSimulareDouaLifturi();
-
-
-
-
+       
 
     }
     catch (const std::exception& e) {
         std::cout << "Eroare: " << e.what() << std::endl;
     }
-    return 0;
+
+    QApplication a(argc, argv);
+    
+    MainWindow w;
+    w.show();
+    
+    return a.exec();
 }

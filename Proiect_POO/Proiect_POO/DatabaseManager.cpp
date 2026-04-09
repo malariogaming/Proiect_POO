@@ -1,7 +1,9 @@
 #include <iostream>
 #include "DatabaseManager.h"
 #include "LogicException.h"
-#include "sqlite3.h"
+extern "C" {
+    #include "sqlite3.h"
+}
 
 DatabaseManager::DatabaseManager() : db(nullptr)
 {

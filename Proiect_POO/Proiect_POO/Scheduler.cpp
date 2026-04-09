@@ -96,7 +96,7 @@ void Scheduler::processLOOKAlgorithm(Building& building, DatabaseManager& db) {
                         db.logRide(idLift, deLaEtajul, laEtajul, nume);
                     }
                     catch (const LogicException& e) {
-                        std::cerr << "[Simulare] Eroare la logarea in DB: " << e.what() << std::endl;
+                        std::cout << "[Simulare] Eroare la logarea in DB: " << e.what() << std::endl;
                     }
                 }
             }
