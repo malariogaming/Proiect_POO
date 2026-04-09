@@ -123,26 +123,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseElevator.cpp" />
+    <ClCompile Include="BaseRequest.cpp" />
+    <ClCompile Include="Building.cpp" />
     <ClCompile Include="CargoBox.cpp" />
     <ClCompile Include="ElevatorException.cpp" />
+    <ClCompile Include="EmergencyElevator.cpp" />
+    <ClCompile Include="ExternalRequest.cpp" />
+    <ClCompile Include="Floor.cpp" />
+    <ClCompile Include="FreightElevator.cpp" />
+    <ClCompile Include="IElevator.cpp" />
+    <ClCompile Include="InternalRequest.cpp" />
     <ClCompile Include="InvalidFloorException.cpp" />
+    <ClCompile Include="IRequest.cpp" />
     <ClCompile Include="ITransportable.cpp" />
     <ClCompile Include="LogicException.cpp" />
     <ClCompile Include="MyException.cpp" />
     <ClCompile Include="OverweightException.cpp" />
+    <ClCompile Include="PassengerElevator.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Proiect_POO.cpp" />
     <ClCompile Include="StandardPassenger.cpp" />
     <ClCompile Include="VIPPassenger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseElevator.h" />
+    <ClInclude Include="BaseRequest.h" />
+    <ClInclude Include="Building.h" />
     <ClInclude Include="CargoBox.h" />
     <ClInclude Include="ElevatorException.h" />
+    <ClInclude Include="EmergencyElevator.h" />
+    <ClInclude Include="ExternalRequest.h" />
+    <ClInclude Include="Floor.h" />
+    <ClInclude Include="FreightElevator.h" />
+    <ClInclude Include="IElevator.h" />
+    <ClInclude Include="InternalRequest.h" />
     <ClInclude Include="InvalidFloorException.h" />
+    <ClInclude Include="IRequest.h" />
     <ClInclude Include="ITransportable.h" />
     <ClInclude Include="LogicException.h" />
     <ClInclude Include="MyException.h" />
     <ClInclude Include="OverweightException.h" />
+    <ClInclude Include="PassengerElevator.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="StandardPassenger.h" />
     <ClInclude Include="VIPPassenger.h" />
