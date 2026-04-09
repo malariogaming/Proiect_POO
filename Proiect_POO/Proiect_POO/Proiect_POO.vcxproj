@@ -127,6 +127,7 @@
     <ClCompile Include="BaseRequest.cpp" />
     <ClCompile Include="Building.cpp" />
     <ClCompile Include="CargoBox.cpp" />
+    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="ElevatorException.cpp" />
     <ClCompile Include="EmergencyElevator.cpp" />
     <ClCompile Include="ExternalRequest.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Proiect_POO.cpp" />
     <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="sqlite3.c" />
     <ClCompile Include="StandardPassenger.cpp" />
     <ClCompile Include="VIPPassenger.cpp" />
   </ItemGroup>
@@ -152,6 +154,7 @@
     <ClInclude Include="BaseRequest.h" />
     <ClInclude Include="Building.h" />
     <ClInclude Include="CargoBox.h" />
+    <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="ElevatorException.h" />
     <ClInclude Include="EmergencyElevator.h" />
     <ClInclude Include="ExternalRequest.h" />

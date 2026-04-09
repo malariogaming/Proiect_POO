@@ -1,6 +1,6 @@
 #include "StandardPassenger.h"
 
-StandardPassenger::StandardPassenger(std::string name, double weight, int destinationFloor) : Person(name, weight, destinationFloor)
+StandardPassenger::StandardPassenger(std::string name, double weight, int startFloor, int destinationFloor) : Person(name, weight, startFloor, destinationFloor)
 {
 }
 

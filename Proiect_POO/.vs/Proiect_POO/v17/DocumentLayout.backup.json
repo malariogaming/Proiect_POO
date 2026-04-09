@@ -3,24 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Scheduler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|solutionrelative:Proiect_POO\\Scheduler.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|solutionrelative:Proiect_POO\\Proiect_POO.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\BaseElevator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|solutionrelative:Proiect_POO\\BaseElevator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\BaseElevator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|solutionrelative:Proiect_POO\\BaseElevator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Scheduler.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FACBB09B-A540-4AC4-BE1A-B71FA4F37680}|Proiect_POO\\Proiect_POO.vcxproj|solutionrelative:Proiect_POO\\Scheduler.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,72 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BaseElevator.cpp",
-              "DocumentMoniker": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\BaseElevator.cpp",
-              "RelativeDocumentMoniker": "Proiect_POO\\BaseElevator.cpp",
-              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\BaseElevator.cpp",
-              "RelativeToolTip": "Proiect_POO\\BaseElevator.cpp",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAAAIEAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-09T13:02:34.926Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BaseElevator.h",
-              "DocumentMoniker": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\BaseElevator.h",
-              "RelativeDocumentMoniker": "Proiect_POO\\BaseElevator.h",
-              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\BaseElevator.h",
-              "RelativeToolTip": "Proiect_POO\\BaseElevator.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-09T13:02:33.632Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Scheduler.cpp",
-              "DocumentMoniker": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Scheduler.cpp",
-              "RelativeDocumentMoniker": "Proiect_POO\\Scheduler.cpp",
-              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Scheduler.cpp*",
-              "RelativeToolTip": "Proiect_POO\\Scheduler.cpp*",
-              "ViewState": "AgIAACIAAAAAAAAAAAAqwDYAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-04-09T12:51:30.213Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Scheduler.h",
-              "DocumentMoniker": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Scheduler.h",
-              "RelativeDocumentMoniker": "Proiect_POO\\Scheduler.h",
-              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Scheduler.h",
-              "RelativeToolTip": "Proiect_POO\\Scheduler.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-09T12:51:25.728Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Proiect_POO.cpp",
               "DocumentMoniker": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp",
               "RelativeDocumentMoniker": "Proiect_POO\\Proiect_POO.cpp",
-              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp",
-              "RelativeToolTip": "Proiect_POO\\Proiect_POO.cpp",
-              "ViewState": "AgIAAB4BAAAAAAAAAAAmwAABAAArAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Mario\\Desktop\\treaba\\academie\\invatamant\\anul 2\\sem 2\\poo proiect\\Proiect_POO\\Proiect_POO\\Proiect_POO\\Proiect_POO.cpp*",
+              "RelativeToolTip": "Proiect_POO\\Proiect_POO.cpp*",
+              "ViewState": "AgIAACcBAAAAAAAAAAAUwC4BAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-03-30T08:22:44.143Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{fabf9319-47eb-497e-b8f6-d9f73fba5f55}"
             }
           ]
         }

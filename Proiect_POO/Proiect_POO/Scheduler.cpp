@@ -67,7 +67,9 @@ BaseElevator* Scheduler::calculateNearestCar(int targetFloor, const std::vector<
     return bestCar;
 }
 
-void Scheduler::processLOOKAlgorithm(Building& building) {
+void Scheduler::processLOOKAlgorithm(Building& building, DatabaseManager& db) {
+
+
     auto& elevators = building.getElevators();
     auto& floors = building.getFloors();
 
@@ -80,6 +82,25 @@ void Scheduler::processLOOKAlgorithm(Building& building) {
 
         if (elev->hasPassengersForFloor(currentF)) {
             elev->openDoors();
+
+            for (auto& item : elev->getCargo()) {
+                if (item->getDestination() == currentF) {
+                    // EXTRAGEM DATELE:
+                    int idLift = elev->getId();
+                    int deLaEtajul = item->getStartFloor();
+                    int laEtajul = currentF;
+                    std::string nume = item->getName();
+
+                    // trimitem catre sql
+                    try {
+                        db.logRide(idLift, deLaEtajul, laEtajul, nume);
+                    }
+                    catch (const LogicException& e) {
+                        std::cerr << "[Simulare] Eroare la logarea in DB: " << e.what() << std::endl;
+                    }
+                }
+            }
+
             elev->unloadPassengersAt(currentF);
             elev->closeDoors();
         }
@@ -126,7 +147,6 @@ void Scheduler::processLOOKAlgorithm(Building& building) {
                 if (i < currentF) requestsBelow = true;
             }
 
-            // Cereri externe
             // Verificam cererile EXTERNE (Oamenii de pe hol) folosind Nearest Car
             for (int i = 0; i < floors.size(); ++i) {
                 if (!floors[i].getWaitingQueue().empty()) {

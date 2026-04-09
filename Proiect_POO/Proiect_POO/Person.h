@@ -8,13 +8,17 @@ class Person :
 protected:
     std::string name;
     double weight;
+    int startFloor;
     int destinationFloor;
 public:
-    Person(std::string name, double weight, int destinationFloor);
+    Person(std::string name, double weight, int startFloor, int destinationFloor);
     virtual ~Person() override = default;
 
     double getWeight() const override;
-    int getDestination() const override;
+    int getDestination() const override;    
     virtual std::string getRole() const = 0;
     friend std::ostream& operator << (std::ostream& os, const Person& p);
+
+    std::string getName() const override;
+    int getStartFloor() const override;
 };

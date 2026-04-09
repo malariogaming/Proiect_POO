@@ -4,6 +4,7 @@
 #include "BaseElevator.h"
 #include "IRequest.h"
 #include "Building.h"
+#include "DatabaseManager.h"
 class Scheduler
 {
 protected:
@@ -17,5 +18,5 @@ public:
 	static void destroyInstance();
 
 	BaseElevator* calculateNearestCar(int targetFloor, const std::vector<std::shared_ptr<BaseElevator>>& elevators);
-	void processLOOKAlgorithm(Building& building);
+	void processLOOKAlgorithm(Building& building, DatabaseManager& db);
 };

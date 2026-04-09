@@ -39,6 +39,7 @@ public:
     ElevatorStatus getStatus() const;
     void setStatus(ElevatorStatus status);
     BaseElevator& operator=(const BaseElevator& other);
+    const std::vector<std::shared_ptr<ITransportable>>& getCargo() const;
     virtual std::string getType() const = 0;
 
     bool hasPassengersForFloor(int floor) const;

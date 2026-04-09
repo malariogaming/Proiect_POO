@@ -109,6 +109,11 @@ BaseElevator& BaseElevator::operator=(const BaseElevator& other)
 	return *this;
 }
 
+const std::vector<std::shared_ptr<ITransportable>>& BaseElevator::getCargo() const
+{
+	return this->cargo;
+}
+
 bool BaseElevator::hasPassengersForFloor(int floor) const
 {
 	for (const auto& item : cargo) {

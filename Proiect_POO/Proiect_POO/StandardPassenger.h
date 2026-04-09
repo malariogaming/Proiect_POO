@@ -6,7 +6,7 @@ class StandardPassenger :
 protected:
 
 public:
-    StandardPassenger(std::string name, double weight, int destinationFloor);
+    StandardPassenger(std::string name, double weight, int startFloor, int destinationFloor);
     ~StandardPassenger() override = default;
 
     std::string getRole() const override;

@@ -14,6 +14,7 @@
 #include "ExternalRequest.h"
 #include "Building.h"
 #include "Scheduler.h"
+#include "DatabaseManager.h"
 
 void testareSistem() {
     std::cout << "\n--- Incepem testarea ierarhiei de exceptii ---\n" << std::endl;
@@ -50,8 +51,8 @@ void testarePasageri() {
 
     std::vector<std::shared_ptr<Person>> listaAsteptare;
 
-    listaAsteptare.push_back(std::make_shared<StandardPassenger>("Mario", 75.0, 5));
-    listaAsteptare.push_back(std::make_shared<VIPPassenger>("Seful Cel Mare", 90.0, 10, 1));
+    listaAsteptare.push_back(std::make_shared<StandardPassenger>("Mario", 75.0, 0, 5));
+    listaAsteptare.push_back(std::make_shared<VIPPassenger>("Seful Cel Mare", 90.0, 10, 2, 1));
 
     for (auto& p : listaAsteptare) {
         std::cout << *p << std::endl;
@@ -63,7 +64,7 @@ void testarePasageri() {
 void testareCargo() {
     std::cout << "\n--- Testare Cargo Box ---\n" << std::endl;
 
-    CargoBox cutie(120.5, true, 5);
+    CargoBox cutie(120.5, true, 0, 5);
     std::cout << cutie << std::endl;
 
     ITransportable* cevaDeTransportat = &cutie;
@@ -81,9 +82,9 @@ void testareLifturiSpecifice() {
 
         pLift->playElevatorMusic();
 
-        auto p1 = std::make_shared<StandardPassenger>("Ion", 80.0, 5);
-        auto p2 = std::make_shared<StandardPassenger>("Maria", 60.0, 3);
-        auto p3 = std::make_shared<StandardPassenger>("Vasile", 90.0, 8);
+        auto p1 = std::make_shared<StandardPassenger>("Ion", 80.0, 2, 5);
+        auto p2 = std::make_shared<StandardPassenger>("Maria", 60.0, 4, 3);
+        auto p3 = std::make_shared<StandardPassenger>("Vasile", 90.0, 6, 8);
 
         pLift->loadItem(p1);
         pLift->loadItem(p2);
@@ -106,7 +107,7 @@ void testareLifturiSpecifice() {
         auto fLift = std::make_shared<FreightElevator>(2, 2000.0, 0, 10);
 
         fLift->enableHeavyMode();
-        auto seif = std::make_shared<CargoBox>(1500.0, false, 5);
+        auto seif = std::make_shared<CargoBox>(1500.0, false, 2, 5);
 
         fLift->loadItem(seif);
         std::cout << "Status: " << fLift->getType() << " la etajul " << fLift->getCurrentFloor() << std::endl;
@@ -126,7 +127,7 @@ void testareLifturiSpecifice() {
         eLift->activateRedCode();
 
         std::cout << "Incercam sa incarcam ceva mult prea greu pentru liftul de urgenta" << std::endl;
-        auto utilaj = std::make_shared<CargoBox>(500.0, false, 5);
+        auto utilaj = std::make_shared<CargoBox>(500.0, false, 3, 5);
 
         eLift->loadItem(utilaj);
     }
@@ -181,7 +182,7 @@ void testBuilding() {
     auto lift = std::make_shared<PassengerElevator>(1, 500, 0, 10, 5);
     b += lift;
 
-    auto p = std::make_shared<StandardPassenger>("Andrei", 75, 7);
+    auto p = std::make_shared<StandardPassenger>("Andrei", 75, 0, 7);
     b.getFloors()[0].addPassenger(p);
 
     b.initSimulation();
@@ -192,18 +193,21 @@ void testBuilding() {
 void ruleazaSimulare() {
     std::cout << "\n--- Testare un lift ---\n" << std::endl;
 
+    DatabaseManager db;
+    db.connectToDB("elevator_sim.db");
+
     Building cladire(6);
 
     auto lift = std::make_shared<PassengerElevator>(1, 400.0, 0, 5, 4);
     cladire += lift;
 
-    auto gigel = std::make_shared<StandardPassenger>("Gigel", 80.0, 3);
+    auto gigel = std::make_shared<StandardPassenger>("Gigel", 80.0, 0, 3);
     cladire.getFloors()[0].addPassenger(gigel);
 
-    auto maria = std::make_shared<StandardPassenger>("Maria", 60.0, 5);
+    auto maria = std::make_shared<StandardPassenger>("Maria", 60.0, 2, 5);
     cladire.getFloors()[2].addPassenger(maria);
 
-    auto mihai = std::make_shared<StandardPassenger>("Mihai", 75.0, 1);
+    auto mihai = std::make_shared<StandardPassenger>("Mihai", 75.0, 3, 1);
     cladire.getFloors()[3].addPassenger(mihai);
 
     Scheduler* creier = Scheduler::getInstance();
@@ -213,7 +217,7 @@ void ruleazaSimulare() {
     while (continua && secunda < 30) {
         std::cout << "\n[Timp: " << secunda << "s] ---" << std::endl;
 
-        creier->processLOOKAlgorithm(cladire);
+        creier->processLOOKAlgorithm(cladire, db);
 
         // Verificam daca mai sunt oameni care asteapta la vreun etaj
         bool oameniLaEtaj = false;
@@ -237,11 +241,16 @@ void ruleazaSimulare() {
 
     Scheduler::destroyInstance();
 
+    db.closeDB();
+
     std::cout << "\n--- Testare finalizata ---\n" << std::endl;
 }
 
 void testSimulareDouaLifturi() {
     std::cout << "\n--- Testare doua lifturi ---\n" << std::endl;
+
+    DatabaseManager db;
+    db.connectToDB("elevator_sim.db");
 
     Building cladire(10);
 
@@ -257,20 +266,26 @@ void testSimulareDouaLifturi() {
     liftB->setStatus(ElevatorStatus::IDLE);
 
     // Adaugam un pasager la etajul 5 care vrea la parter
-    auto pasager = std::make_shared<StandardPassenger>("Andrei", 70.0, 0);
+    auto pasager = std::make_shared<StandardPassenger>("Andrei", 70.0, 5, 0);
     cladire.getFloors()[5].addPassenger(pasager);
 
     Scheduler* creier = Scheduler::getInstance();
+    bool continua = true;
+    int secunda = 0;
 
-    for (int i = 0; i < 10; i++) {
-        std::cout << "\n[Pasul " << i << "]" << std::endl;
+    while (continua && secunda < 10) {
+        std::cout << "\n[Timp: " << secunda << "s] ---" << std::endl;
 
-        // Aici am putea folosi calculateNearestCar pentru a decide 
-        // dar LOOK-ul nostru actual le face pe amandoua sa "priveasca" cladirea
-        creier->processLOOKAlgorithm(cladire);
+        creier->processLOOKAlgorithm(cladire, db);
+
+        secunda++;
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 
     Scheduler::destroyInstance();
+
+    db.closeDB();
 
     std::cout << "\n--- Testare finalizata ---\n" << std::endl;
 }
@@ -285,7 +300,7 @@ int main()
         //testareRequesturi();
         //testBuilding();
         
-        ruleazaSimulare();
+        //ruleazaSimulare();
         //testSimulareDouaLifturi();
 
 
@@ -294,7 +309,7 @@ int main()
 
     }
     catch (const std::exception& e) {
-        std::cerr << "Eroare: " << e.what() << std::endl;
+        std::cout << "Eroare: " << e.what() << std::endl;
     }
     return 0;
 }

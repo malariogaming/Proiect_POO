@@ -6,7 +6,7 @@ class VIPPassenger :
 protected:
     int priorityLevel;
 public:
-    VIPPassenger(std::string name, double weight, int destinationFloor, int priorityLevel);
+    VIPPassenger(std::string name, double weight, int startFloor, int destinationFloor, int priorityLevel);
     ~VIPPassenger() override = default;
 
     std::string getRole() const override;

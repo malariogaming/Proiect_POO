@@ -1,6 +1,6 @@
 #include "VIPPassenger.h"
 
-VIPPassenger::VIPPassenger(std::string name, double weight, int destinationFloor, int priorityLevel) : Person(name, weight, destinationFloor), priorityLevel(priorityLevel)
+VIPPassenger::VIPPassenger(std::string name, double weight, int startFLoor, int destinationFloor, int priorityLevel) : Person(name, weight, startFloor, destinationFloor), priorityLevel(priorityLevel)
 {
 }
 
