@@ -37,6 +37,11 @@ public:
     int getCurrentFloor() const override;
     int getId() const override;
     ElevatorStatus getStatus() const;
+    void setStatus(ElevatorStatus status);
     BaseElevator& operator=(const BaseElevator& other);
     virtual std::string getType() const = 0;
+
+    bool hasPassengersForFloor(int floor) const;
+    void unloadPassengersAt(int floor);
+    bool hasDestination(int floor) const;
 };

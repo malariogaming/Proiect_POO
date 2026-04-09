@@ -13,6 +13,7 @@
 #include "InternalRequest.h"
 #include "ExternalRequest.h"
 #include "Building.h"
+#include "Scheduler.h"
 
 void testareSistem() {
     std::cout << "\n--- Incepem testarea ierarhiei de exceptii ---\n" << std::endl;
@@ -62,7 +63,7 @@ void testarePasageri() {
 void testareCargo() {
     std::cout << "\n--- Testare Cargo Box ---\n" << std::endl;
 
-    CargoBox cutie(120.5, true);
+    CargoBox cutie(120.5, true, 5);
     std::cout << cutie << std::endl;
 
     ITransportable* cevaDeTransportat = &cutie;
@@ -105,7 +106,7 @@ void testareLifturiSpecifice() {
         auto fLift = std::make_shared<FreightElevator>(2, 2000.0, 0, 10);
 
         fLift->enableHeavyMode();
-        auto seif = std::make_shared<CargoBox>(1500.0, false);
+        auto seif = std::make_shared<CargoBox>(1500.0, false, 5);
 
         fLift->loadItem(seif);
         std::cout << "Status: " << fLift->getType() << " la etajul " << fLift->getCurrentFloor() << std::endl;
@@ -125,7 +126,7 @@ void testareLifturiSpecifice() {
         eLift->activateRedCode();
 
         std::cout << "Incercam sa incarcam ceva mult prea greu pentru liftul de urgenta" << std::endl;
-        auto utilaj = std::make_shared<CargoBox>(500.0, false);
+        auto utilaj = std::make_shared<CargoBox>(500.0, false, 5);
 
         eLift->loadItem(utilaj);
     }
@@ -188,19 +189,75 @@ void testBuilding() {
     std::cout << "\n--- Testare finalizata ---\n" << std::endl;
 }
 
+void ruleazaSimulare() {
+    std::cout << "\n--- Testare simulare ---\n" << std::endl;
+
+    Building cladire(6);
+
+    auto lift = std::make_shared<PassengerElevator>(1, 400.0, 0, 5, 4);
+    cladire += lift;
+
+    auto gigel = std::make_shared<StandardPassenger>("Gigel", 80.0, 3);
+    cladire.getFloors()[0].addPassenger(gigel);
+
+    auto maria = std::make_shared<StandardPassenger>("Maria", 60.0, 5);
+    cladire.getFloors()[2].addPassenger(maria);
+
+    auto mihai = std::make_shared<StandardPassenger>("Mihai", 75.0, 1);
+    cladire.getFloors()[3].addPassenger(mihai);
+
+    Scheduler* creier = Scheduler::getInstance();
+    bool continua = true;
+    int secunda = 0;
+
+    while (continua && secunda < 30) {
+        std::cout << "\n[Timp: " << secunda << "s] ---" << std::endl;
+
+        creier->processLOOKAlgorithm(cladire);
+
+        // Verificam daca mai sunt oameni care asteapta la vreun etaj
+        bool oameniLaEtaj = false;
+        for (auto& f : cladire.getFloors()) {
+            if (!f.getWaitingQueue().empty()) oameniLaEtaj = true;
+        }
+
+        // Verificam daca mai sunt oameni in lift
+        bool oameniInLift = (lift->getStatus() != ElevatorStatus::IDLE);
+
+        // Daca totul e gol si liftul e IDLE, oprim
+        if (!oameniLaEtaj && !oameniInLift) {
+            std::cout << "\n[Simulare] Succes! Toti pasagerii au ajuns la destinatie" << std::endl;
+            continua = false;
+        }
+
+        secunda++;
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+
+    Scheduler::destroyInstance();
+}
+
 int main()
 {
-    //testareSistem();
-    //testarePasageri();
-    //testareCargo();
-    //testareLifturiSpecifice();
-    //testareRequesturi();
-    //testBuilding();
+    try {
+        //testareSistem();
+        //testarePasageri();
+        //testareCargo();
+        //testareLifturiSpecifice();
+        //testareRequesturi();
+        //testBuilding();
+        
+        ruleazaSimulare();
 
 
 
 
 
 
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Eroare: " << e.what() << std::endl;
+    }
     return 0;
 }

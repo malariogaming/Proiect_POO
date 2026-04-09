@@ -143,6 +143,7 @@
     <ClCompile Include="PassengerElevator.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Proiect_POO.cpp" />
+    <ClCompile Include="Scheduler.cpp" />
     <ClCompile Include="StandardPassenger.cpp" />
     <ClCompile Include="VIPPassenger.cpp" />
   </ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="OverweightException.h" />
     <ClInclude Include="PassengerElevator.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Scheduler.h" />
     <ClInclude Include="StandardPassenger.h" />
     <ClInclude Include="VIPPassenger.h" />
   </ItemGroup>

@@ -9,7 +9,7 @@ double Person::getWeight() const
 	return this->weight;
 }
 
-int Person::getDestinationFloor() const
+int Person::getDestination() const
 {
 	return this->destinationFloor;
 }

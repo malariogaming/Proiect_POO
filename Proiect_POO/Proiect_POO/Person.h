@@ -14,7 +14,7 @@ public:
     virtual ~Person() override = default;
 
     double getWeight() const override;
-    int getDestinationFloor() const;
+    int getDestination() const override;
     virtual std::string getRole() const = 0;
     friend std::ostream& operator << (std::ostream& os, const Person& p);
 };

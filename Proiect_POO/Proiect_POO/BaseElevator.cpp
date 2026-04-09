@@ -11,7 +11,7 @@ void BaseElevator::moveTo(int floor)
 	}
 
 	if (floor == currentFloor) {
-		std::cout << "[Lift " << id << "] este deja la etajul " << floor << std::endl;
+		std::cout << "[Lift " << id << "] Este deja la etajul " << floor << std::endl;
 		return;
 	}
 
@@ -19,20 +19,19 @@ void BaseElevator::moveTo(int floor)
 	this->status = (targetFloor > currentFloor) ? ElevatorStatus::MOVING_UP : ElevatorStatus::MOVING_DOWN;
 
 	std::string directie = (status == ElevatorStatus::MOVING_UP) ? "SUS" : "JOS";
-	std::cout << "[Lift " << id << "] se deplaseaza " << directie << ": " << currentFloor << " -> " << targetFloor << std::endl;
+	std::cout << "[Lift " << id << "] Se deplaseaza " << directie << ": " << currentFloor << " -> " << targetFloor << std::endl;
 
 	//deplasare...
 
 	currentFloor = targetFloor;
-	status = ElevatorStatus::IDLE;
 
-	std::cout << "[Lift " << id << "] s-a oprit la etajul " << currentFloor << std::endl;
+	std::cout << "[Lift " << id << "] S-a oprit la etajul " << currentFloor << std::endl;
 }
 
 void BaseElevator::openDoors()
 {
 	status = ElevatorStatus::DOORS_OPEN;
-	std::cout << "[Lift " << id << "] usile s-au DESCHIS la etajul " << currentFloor << std::endl;
+	std::cout << "[Lift " << id << "] Usile s-au DESCHIS la etajul " << currentFloor << std::endl;
 }
 
 void BaseElevator::closeDoors()
@@ -51,7 +50,7 @@ void BaseElevator::loadItem(std::shared_ptr<ITransportable> item)
 	cargo.push_back(item);
 	currentWeight += item->getWeight();
 
-	std::cout << "[Lift " << id << "] incarcat cu: " << item->getWeight() << " kg. Greutate totala actuala: " << currentWeight << "/" << maxWeight << " kg" << std::endl;
+	std::cout << "[Lift " << id << "] Incarcat cu: " << item->getWeight() << " kg. Greutate totala actuala: " << currentWeight << "/" << maxWeight << " kg" << std::endl;
 }
 
 void BaseElevator::unloadItem(std::shared_ptr<ITransportable> item)
@@ -61,7 +60,7 @@ void BaseElevator::unloadItem(std::shared_ptr<ITransportable> item)
 	if (it != cargo.end()) {
 		currentWeight -= (*it)->getWeight();
 		cargo.erase(it);
-		std::cout << "[Lift " << id << "] descarcare reusita la etajul " << currentFloor << std::endl;
+		std::cout << "[Lift " << id << "] Descarcare reusita la etajul " << currentFloor << std::endl;
 	}
 	else {
 		std::cout << "[Eroare] Obiectul nu a fost gasit in liftul " << id << std::endl;
@@ -88,6 +87,11 @@ ElevatorStatus BaseElevator::getStatus() const
 	return this->status;
 }
 
+void BaseElevator::setStatus(ElevatorStatus status)
+{
+	this->status = status;
+}
+
 BaseElevator& BaseElevator::operator=(const BaseElevator& other)
 {
 	if (this != &other) {
@@ -103,4 +107,45 @@ BaseElevator& BaseElevator::operator=(const BaseElevator& other)
 		this->cargo = other.cargo; //shallow copy
 	}
 	return *this;
+}
+
+bool BaseElevator::hasPassengersForFloor(int floor) const
+{
+	for (const auto& item : cargo) {
+		if (item->getDestination() == floor) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void BaseElevator::unloadPassengersAt(int floor)
+{
+	auto it = cargo.begin();
+	int count = 0;
+
+	while (it != cargo.end()) {
+		if ((*it)->getDestination() == floor) {
+			// Daca vrea sa coboare aici:
+			it = cargo.erase(it);
+			count++;
+		}
+		else {
+			++it;
+		}
+	}
+
+	if (count > 0) {
+		std::cout << "[Lift " << id << "] Au coborat " << count << " pasageri la etajul " << floor << std::endl;
+	}
+}
+
+bool BaseElevator::hasDestination(int floor) const
+{
+	for (const auto& item : cargo) {
+		if (item->getDestination() == floor) {
+			return true;
+		}
+	}
+	return false;
 }
