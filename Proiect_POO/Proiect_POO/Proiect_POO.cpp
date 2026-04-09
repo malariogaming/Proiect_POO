@@ -190,7 +190,7 @@ void testBuilding() {
 }
 
 void ruleazaSimulare() {
-    std::cout << "\n--- Testare simulare ---\n" << std::endl;
+    std::cout << "\n--- Testare un lift ---\n" << std::endl;
 
     Building cladire(6);
 
@@ -236,6 +236,43 @@ void ruleazaSimulare() {
     }
 
     Scheduler::destroyInstance();
+
+    std::cout << "\n--- Testare finalizata ---\n" << std::endl;
+}
+
+void testSimulareDouaLifturi() {
+    std::cout << "\n--- Testare doua lifturi ---\n" << std::endl;
+
+    Building cladire(10);
+
+    // Adaugam doua lifturi
+    auto liftA = std::make_shared<PassengerElevator>(1, 400.0, 0, 9, 4);
+    auto liftB = std::make_shared<PassengerElevator>(2, 400.0, 0, 9, 4);
+
+    cladire += liftA;
+    cladire += liftB;
+
+    // Punem lifturile in pozitii diferite pentru inceput
+    liftB->moveTo(8); // Trimitem liftul B la etajul 8 manual pentru test
+    liftB->setStatus(ElevatorStatus::IDLE);
+
+    // Adaugam un pasager la etajul 5 care vrea la parter
+    auto pasager = std::make_shared<StandardPassenger>("Andrei", 70.0, 0);
+    cladire.getFloors()[5].addPassenger(pasager);
+
+    Scheduler* creier = Scheduler::getInstance();
+
+    for (int i = 0; i < 10; i++) {
+        std::cout << "\n[Pasul " << i << "]" << std::endl;
+
+        // Aici am putea folosi calculateNearestCar pentru a decide 
+        // dar LOOK-ul nostru actual le face pe amandoua sa "priveasca" cladirea
+        creier->processLOOKAlgorithm(cladire);
+    }
+
+    Scheduler::destroyInstance();
+
+    std::cout << "\n--- Testare finalizata ---\n" << std::endl;
 }
 
 int main()
@@ -249,7 +286,7 @@ int main()
         //testBuilding();
         
         ruleazaSimulare();
-
+        //testSimulareDouaLifturi();
 
 
 

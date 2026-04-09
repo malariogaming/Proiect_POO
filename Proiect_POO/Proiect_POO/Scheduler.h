@@ -16,6 +16,6 @@ public:
 	static Scheduler* getInstance();
 	static void destroyInstance();
 
-	BaseElevator* calculateNearestCar(const IRequest& req, const std::vector<std::shared_ptr<BaseElevator>>& elevators);
+	BaseElevator* calculateNearestCar(int targetFloor, const std::vector<std::shared_ptr<BaseElevator>>& elevators);
 	void processLOOKAlgorithm(Building& building);
 };

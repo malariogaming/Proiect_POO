@@ -28,24 +28,41 @@ void Scheduler::destroyInstance()
 	}
 }
 
-BaseElevator* Scheduler::calculateNearestCar(const IRequest& req, const std::vector<std::shared_ptr<BaseElevator>>& elevators)
+BaseElevator* Scheduler::calculateNearestCar(int targetFloor, const std::vector<std::shared_ptr<BaseElevator>>& elevators)
 {
     BaseElevator* bestCar = nullptr;
     int minDistance = 999999999;
-    int targetFloor = req.getTargetFloor();
 
     for (const auto& elev : elevators) {
+        if (elev->getStatus() == ElevatorStatus::OUT_OF_SERVICE) continue;
+
         int dist = std::abs(elev->getCurrentFloor() - targetFloor);
+
+        int penalty = 0;
+
+        // LOGICA INTELIGENTA DE PENALIZARE:
+        if (elev->getStatus() == ElevatorStatus::MOVING_UP && targetFloor < elev->getCurrentFloor()) {
+            penalty = 10; // Liftul urca si cererea e dedesubt
+        }
+        else if (elev->getStatus() == ElevatorStatus::MOVING_DOWN && targetFloor > elev->getCurrentFloor()) {
+            penalty = 10; // Liftul coboara si cererea e deasupra
+        }
+        else if (elev->getStatus() != ElevatorStatus::IDLE) {
+            // Daca se misca deja spre tinta, e mai bine
+            penalty = -1;
+        }
+
+        dist = dist + penalty;
 
         if (dist < minDistance) {
             minDistance = dist;
-            bestCar = elev.get(); // Returnam pointerul brut
+            bestCar = elev.get();
         }
     }
 
-    if (bestCar) {
-        std::cout << "[Scheduler] Cel mai apropiat lift identificat: ID " << bestCar->getId() << std::endl;
-    }
+    //if (bestCar) {
+    //    std::cout << "[Scheduler] Cel mai apropiat lift identificat: ID " << bestCar->getId() << std::endl;
+    //}
 
     return bestCar;
 }
@@ -103,15 +120,21 @@ void Scheduler::processLOOKAlgorithm(Building& building) {
         bool requestsBelow = false;
 
         for (int i = 0; i < floors.size(); ++i) {
-            // Cereri externe
-            if (!floors[i].getWaitingQueue().empty()) {
-                if (i > currentF) requestsAbove = true;
-                if (i < currentF) requestsBelow = true;
-            }
             // Cereri interne
             if (elev->hasDestination(i)) {
                 if (i > currentF) requestsAbove = true;
                 if (i < currentF) requestsBelow = true;
+            }
+
+            // Cereri externe
+            // Verificam cererile EXTERNE (Oamenii de pe hol) folosind Nearest Car
+            for (int i = 0; i < floors.size(); ++i) {
+                if (!floors[i].getWaitingQueue().empty()) {
+                    if (calculateNearestCar(i, elevators) == elev.get()) {
+                        if (i > currentF) requestsAbove = true;
+                        if (i < currentF) requestsBelow = true;
+                    }
+                }
             }
         }
 

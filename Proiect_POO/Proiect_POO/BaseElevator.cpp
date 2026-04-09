@@ -37,7 +37,7 @@ void BaseElevator::openDoors()
 void BaseElevator::closeDoors()
 {
 	status = ElevatorStatus::IDLE;
-	std::cout << "[Lift " << id << "] Usile s-au INCHIS la etajul" << currentFloor << std::endl;
+	std::cout << "[Lift " << id << "] Usile s-au INCHIS la etajul " << currentFloor << std::endl;
 }
 
 void BaseElevator::loadItem(std::shared_ptr<ITransportable> item)
@@ -127,6 +127,7 @@ void BaseElevator::unloadPassengersAt(int floor)
 	while (it != cargo.end()) {
 		if ((*it)->getDestination() == floor) {
 			// Daca vrea sa coboare aici:
+			this->currentWeight = this->currentWeight - (*it)->getWeight();
 			it = cargo.erase(it);
 			count++;
 		}
