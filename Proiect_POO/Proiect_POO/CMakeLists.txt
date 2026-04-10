@@ -22,6 +22,9 @@ set(SOURCES
     MainWindow.cpp
     MainWindow.h
     MainWindow.ui
+    AddPassengerDialog.cpp
+    AddPassengerDialog.h
+    AddPassengerDialog.ui
     Proiect_POO.cpp
     BaseElevator.cpp
     BaseRequest.cpp

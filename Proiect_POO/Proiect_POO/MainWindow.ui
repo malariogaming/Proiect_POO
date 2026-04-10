@@ -114,6 +114,29 @@
        <string>GENEREAZA SIMULARE</string>
       </property>
      </widget>
+     <widget class="QTableWidget" name="tableLifturi">
+      <property name="geometry">
+       <rect>
+        <x>375</x>
+        <y>60</y>
+        <width>211</width>
+        <height>192</height>
+       </rect>
+      </property>
+      <property name="columnCount">
+       <number>2</number>
+      </property>
+      <column>
+       <property name="text">
+        <string>Lift</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tip</string>
+       </property>
+      </column>
+     </widget>
     </widget>
     <widget class="QWidget" name="page_2">
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -125,7 +148,34 @@
         <height>321</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="layoutSimulare"/>
+      <layout class="QVBoxLayout" name="layoutSimulare">
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnDeschideDialog">
+         <property name="maximumSize">
+          <size>
+           <width>160</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Genereaza Pasager/Cargo</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
