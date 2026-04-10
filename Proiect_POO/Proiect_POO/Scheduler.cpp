@@ -1,4 +1,4 @@
-#include "Scheduler.h"
+﻿#include "Scheduler.h"
 
 Scheduler* Scheduler::instance = nullptr;
 
@@ -28,7 +28,7 @@ void Scheduler::destroyInstance()
 	}
 }
 
-BaseElevator* Scheduler::calculateNearestCar(int targetFloor, const std::vector<std::shared_ptr<BaseElevator>>& elevators)
+BaseElevator* Scheduler::calculateNearestCar(int targetFloor, double requiredWeight, const std::vector<std::shared_ptr<BaseElevator>>& elevators)
 {
     BaseElevator* bestCar = nullptr;
     int minDistance = 999999999;
@@ -36,19 +36,18 @@ BaseElevator* Scheduler::calculateNearestCar(int targetFloor, const std::vector<
     for (const auto& elev : elevators) {
         if (elev->getStatus() == ElevatorStatus::OUT_OF_SERVICE) continue;
 
-        int dist = std::abs(elev->getCurrentFloor() - targetFloor);
+        if (elev->getMaxWeight() < requiredWeight) continue;
 
+        int dist = std::abs(elev->getCurrentFloor() - targetFloor);
         int penalty = 0;
 
-        // LOGICA INTELIGENTA DE PENALIZARE:
         if (elev->getStatus() == ElevatorStatus::MOVING_UP && targetFloor < elev->getCurrentFloor()) {
-            penalty = 10; // Liftul urca si cererea e dedesubt
+            penalty = 10;
         }
         else if (elev->getStatus() == ElevatorStatus::MOVING_DOWN && targetFloor > elev->getCurrentFloor()) {
-            penalty = 10; // Liftul coboara si cererea e deasupra
+            penalty = 10;
         }
         else if (elev->getStatus() != ElevatorStatus::IDLE) {
-            // Daca se misca deja spre tinta, e mai bine
             penalty = -1;
         }
 
@@ -60,15 +59,10 @@ BaseElevator* Scheduler::calculateNearestCar(int targetFloor, const std::vector<
         }
     }
 
-    //if (bestCar) {
-    //    std::cout << "[Scheduler] Cel mai apropiat lift identificat: ID " << bestCar->getId() << std::endl;
-    //}
-
     return bestCar;
 }
 
 void Scheduler::processLOOKAlgorithm(Building& building, DatabaseManager& db) {
-
 
     auto& elevators = building.getElevators();
     auto& floors = building.getFloors();
@@ -77,8 +71,6 @@ void Scheduler::processLOOKAlgorithm(Building& building, DatabaseManager& db) {
         if (elev->getStatus() == ElevatorStatus::OUT_OF_SERVICE) continue;
 
         int currentF = elev->getCurrentFloor();
-
-        // 1. DESCARCARE PASAGERI
 
         if (elev->hasPassengersForFloor(currentF)) {
             elev->openDoors();
@@ -113,7 +105,7 @@ void Scheduler::processLOOKAlgorithm(Building& building, DatabaseManager& db) {
             // Incarcam cat mai multi oameni
             while (!currentFloorQueue.empty()) {
                 // Luam primul om din coada
-                std::shared_ptr<Person> nextPerson = currentFloorQueue.front();
+                std::shared_ptr<ITransportable> nextPerson = currentFloorQueue.front();
                 double personWeight = nextPerson->getWeight(); // Greutatea sa
 
                 if (elev->canAcceptWeight(personWeight)) {
@@ -148,9 +140,11 @@ void Scheduler::processLOOKAlgorithm(Building& building, DatabaseManager& db) {
             }
 
             // Verificam cererile EXTERNE (Oamenii de pe hol) folosind Nearest Car
-            for (int i = 0; i < floors.size(); ++i) {
+            for(int i = 0; i < floors.size(); ++i) {
                 if (!floors[i].getWaitingQueue().empty()) {
-                    if (calculateNearestCar(i, elevators) == elev.get()) {
+                    double weightAtFloor = floors[i].getWaitingQueue().front()->getWeight();
+
+                    if (calculateNearestCar(i, weightAtFloor, elevators) == elev.get()) {
                         if (i > currentF) requestsAbove = true;
                         if (i < currentF) requestsBelow = true;
                     }

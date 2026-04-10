@@ -87,6 +87,11 @@ ElevatorStatus BaseElevator::getStatus() const
 	return this->status;
 }
 
+double BaseElevator::getMaxWeight()
+{
+	return this->maxWeight;
+}
+
 void BaseElevator::setStatus(ElevatorStatus status)
 {
 	this->status = status;
@@ -154,4 +159,16 @@ bool BaseElevator::hasDestination(int floor) const
 		}
 	}
 	return false;
+}
+
+void BaseElevator::setCurrentFloor(int floor)
+{
+	this->currentFloor = 0;
+	this->status = ElevatorStatus::IDLE;
+}
+
+void BaseElevator::clearCargo()
+{
+	this->cargo.clear();
+	this->currentWeight = 0;
 }

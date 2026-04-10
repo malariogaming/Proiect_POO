@@ -45,4 +45,9 @@ public:
     bool hasPassengersForFloor(int floor) const;
     void unloadPassengersAt(int floor);
     bool hasDestination(int floor) const;
+
+    void setCurrentFloor(int floor);
+    void clearCargo();
+
+    double getMaxWeight();
 };

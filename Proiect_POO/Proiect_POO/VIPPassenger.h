@@ -10,4 +10,5 @@ public:
     ~VIPPassenger() override = default;
 
     std::string getRole() const override;
+    std::string getIcon() const override;
 };

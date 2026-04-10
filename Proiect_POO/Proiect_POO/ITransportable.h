@@ -11,4 +11,6 @@ public:
 
 	virtual std::string getName() const = 0;
 	virtual int getStartFloor() const = 0;
+
+	virtual std::string getIcon() const = 0;
 };

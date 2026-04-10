@@ -175,6 +175,45 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="btnUrgenta">
+         <property name="maximumSize">
+          <size>
+           <width>160</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Mod Urgenta</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnStartSimulare">
+         <property name="maximumSize">
+          <size>
+           <width>160</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Start Simulare</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btnReset">
+         <property name="maximumSize">
+          <size>
+           <width>160</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Reset Simulare</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>

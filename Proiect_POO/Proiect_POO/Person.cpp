@@ -1,4 +1,4 @@
-#include "Person.h"
+﻿#include "Person.h"
 
 Person::Person(std::string name, double weight, int startFloor, int destinationFloor) : name(name), weight(weight), startFloor(startFloor), destinationFloor(destinationFloor)
 {
@@ -12,6 +12,11 @@ double Person::getWeight() const
 int Person::getDestination() const
 {
 	return this->destinationFloor;
+}
+
+std::string Person::getIcon() const
+{
+	return "👤";
 }
 
 std::string Person::getName() const

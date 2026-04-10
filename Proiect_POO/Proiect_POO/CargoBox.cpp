@@ -1,4 +1,4 @@
-#include "CargoBox.h"
+﻿#include "CargoBox.h"
 
 CargoBox::CargoBox(double weight, bool isFragile, int startFloor, int destinationFloor) : weight(weight), isFragile(isFragile), startFloor(startFloor), destinationFloor(destinationFloor)
 {
@@ -21,12 +21,17 @@ bool CargoBox::getIsFragile() const
 
 std::string CargoBox::getName() const
 {
-	return "CargoBox" + std::to_string(this->weight) + "KG";
+	return "Cargo Box";
 }
 
 int CargoBox::getStartFloor() const
 {
 	return this->startFloor;
+}
+
+std::string CargoBox::getIcon() const
+{
+	return "📦";
 }
 
 std::ostream& operator<<(std::ostream& os, const CargoBox& cb)

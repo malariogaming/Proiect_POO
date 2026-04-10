@@ -20,4 +20,5 @@ public:
 
     std::string getName() const override;
     int getStartFloor() const override;
+    std::string getIcon() const override;
 };

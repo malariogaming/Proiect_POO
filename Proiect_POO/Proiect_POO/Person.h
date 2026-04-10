@@ -17,6 +17,7 @@ public:
     double getWeight() const override;
     int getDestination() const override;    
     virtual std::string getRole() const = 0;
+    virtual std::string getIcon() const override;
     friend std::ostream& operator << (std::ostream& os, const Person& p);
 
     std::string getName() const override;
