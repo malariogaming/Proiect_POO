@@ -456,3 +456,95 @@ void MainWindow::on_btnUrgenta_clicked() {
 
     qDebug() << "Regim urgenta:" << (regimUrgenta ? "ACTIV" : "INACTIV");
 }
+
+void MainWindow::on_btnRandomizeaza_clicked() {
+    // generam cladirea
+    int nrEtaje = QRandomGenerator::global()->bounded(3, 6);   // 3, 4 sau 5
+    int nrLifturi = QRandomGenerator::global()->bounded(3, 6); // 3, 4 sau 5
+
+    ui.spinEtaje->setValue(nrEtaje);
+    ui.spinLifturi->setValue(nrLifturi);
+
+    // distribuim lifturile
+    for (int i = 0; i < nrLifturi; ++i) {
+        QComboBox* combo = qobject_cast<QComboBox*>(ui.tableLifturi->cellWidget(i, 1));
+        if (combo) {
+            if (i == nrLifturi - 1) {
+                combo->setCurrentText("Emergency"); // Ultimul mereu urgenta
+            }
+            else if (i < nrLifturi / 2) {
+                combo->setCurrentText("Passenger"); // Prima jumatate Pasageri
+            }
+            else {
+                combo->setCurrentText("Freight");   // In mijloc marfa
+            }
+        }
+    }
+
+    on_btnGenerare_clicked();
+
+    // generam obiecte
+    int nrObiecte = QRandomGenerator::global()->bounded(3, 8);
+
+    for (int i = 0; i < nrObiecte; ++i) {
+        int tip = QRandomGenerator::global()->bounded(0, 3); // 0 (std), 1 (VIP), 2 (cargo)
+
+        // etaje random
+        int start = QRandomGenerator::global()->bounded(0, nrEtaje);
+        int dest = QRandomGenerator::global()->bounded(0, nrEtaje);
+        while (start == dest) {
+            dest = QRandomGenerator::global()->bounded(0, nrEtaje);
+        }
+
+        double weight = 0;
+        QString infoPasager;
+        QString emoji;
+        std::shared_ptr<ITransportable> itemNou = nullptr;
+
+        if (tip == 0) { // Standard
+            weight = QRandomGenerator::global()->bounded(75, 121); // 75 - 120 kg
+            std::string nume = "Pasager_R" + std::to_string(i + 1);
+            itemNou = std::make_shared<StandardPassenger>(nume, weight, start, dest);
+            infoPasager = QString::fromStdString(nume);
+            emoji = "👤";
+        }
+        else if (tip == 1) { // VIP
+            weight = QRandomGenerator::global()->bounded(75, 121); // 75 - 120 kg
+            std::string nume = "VIP_R" + std::to_string(i + 1);
+            int priority = QRandomGenerator::global()->bounded(1, 6); // Prioritate 1-5
+            itemNou = std::make_shared<VIPPassenger>(nume, weight, start, dest, priority);
+            infoPasager = QString::fromStdString(nume) + " (VIP)";
+            emoji = "🌟";
+        }
+        else if (tip == 2) { // Cargo
+            weight = QRandomGenerator::global()->bounded(400, 801); // 400 - 800 kg
+            bool fragile = (QRandomGenerator::global()->bounded(0, 2) == 1); // 50% șanse să fie fragil
+            itemNou = std::make_shared<CargoBox>(weight, fragile, start, dest);
+            infoPasager = "Cargo" + QString(fragile ? " [!]" : "");
+            emoji = "📦";
+        }
+
+        if (itemNou) {
+            cladire->getFloors()[start].addPassenger(itemNou);
+
+            QLabel* pLabel = new QLabel(emoji + " " + infoPasager + " -> " + QString::number(dest));
+
+            QString stil = "font-weight: bold; border-radius: 5px; padding: 2px; ";
+            if (emoji == "🌟") {
+                stil += "color: #f1c40f; background-color: rgba(44, 62, 80, 220); border: 2px solid gold;";
+            }
+            else if (emoji == "📦") {
+                stil += "color: #ecf0f1; background-color: #d35400; border: 1px solid white;";
+            }
+            else {
+                stil += "color: #f1c40f; background-color: rgba(44, 62, 80, 200); border: 1px solid #f39c12;";
+            }
+
+            pLabel->setStyleSheet(stil);
+
+            if (!waitingAreas.isEmpty() && start < waitingAreas[0].size()) {
+                waitingAreas[0][start]->addWidget(pLabel);
+            }
+        }
+    }
+}

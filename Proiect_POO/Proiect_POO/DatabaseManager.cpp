@@ -29,7 +29,7 @@ bool DatabaseManager::connectToDB(const std::string& dbName)
                       "START_FLOOR INT NOT NULL, "
                       "END_FLOOR INT NOT NULL, "
                       "PASSENGER_NAME TEXT NOT NULL, "
-                      "TIMESTAMP DATETIME DEFAULT CURRENT_TIMESTAMP);";
+                      "TIMESTAMP DATETIME DEFAULT (datetime('now', 'localtime')));";
 
     char* messageError = nullptr;
 

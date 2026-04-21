@@ -13,6 +13,7 @@
 #include "Scheduler.h"
 #include "DatabaseManager.h"
 #include <QTimer>
+#include <QRandomGenerator>
 
 #include "PassengerElevator.h"
 #include "FreightElevator.h"
@@ -34,6 +35,7 @@ private slots:
 	void actualizeazaInterfata();
 	void on_btnReset_clicked();
 	void on_btnUrgenta_clicked();
+	void on_btnRandomizeaza_clicked();
 
 private:
 	Ui::MainWindowClass ui;
