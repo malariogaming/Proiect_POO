@@ -280,7 +280,7 @@ void MainWindow::on_btnStartSimulare_clicked() {
     timerSimulare->start(1000);
 
     ui.btnStartSimulare->setEnabled(false);
-    ui.btnStartSimulare->setText("Simulare în curs...");
+    ui.btnStartSimulare->setText("Simulare in curs");
     ui.btnGenerare->setEnabled(false);
 }
 
@@ -446,11 +446,11 @@ void MainWindow::on_btnUrgenta_clicked() {
     }
 
     if (regimUrgenta) {
-        btnUrgenta->setText("⚠️ MOD URGENȚĂ ACTIV");
+        btnUrgenta->setText("⚠️ MOD URGENTA ACTIV");
         btnUrgenta->setStyleSheet("background-color: #c0392b; color: white; font-weight: bold; border: 2px solid white;");
     }
     else {
-        btnUrgenta->setText("BUTON URGENȚĂ");
+        btnUrgenta->setText("BUTON URGENTA");
         btnUrgenta->setStyleSheet("background-color: #7f8c8d; color: white;");
     }
 
@@ -547,4 +547,113 @@ void MainWindow::on_btnRandomizeaza_clicked() {
             }
         }
     }
+}
+
+void MainWindow::on_btnLoadFile_clicked() {
+    // deschidem dialogul
+    QString fileName = QFileDialog::getOpenFileName(this, "Incarca Scenariu JSON", "", "JSON Files (*.json);;All Files (*)");
+    if (fileName.isEmpty()) return; // Utilizatorul a dat cancel
+
+    // citim fisierul
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Eroare", "Nu am putut deschide fisierul!");
+        return;
+    }
+
+    QString rawData = file.readAll();
+    file.close();
+
+    // citim din json
+    QJsonParseError parseError;
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(rawData.toUtf8(), &parseError);
+
+    if (parseError.error != QJsonParseError::NoError) {
+        QMessageBox::critical(this, "Eroare JSON", "Fisierul JSON este invalid:\n" + parseError.errorString());
+        return;
+    }
+
+    QJsonObject rootObj = jsonDoc.object();
+
+    // construim cladirea
+    QJsonObject cladireObj = rootObj["cladire"].toObject();
+    int nrEtaje = cladireObj["etaje"].toInt();
+    QJsonArray lifturiArray = cladireObj["lifturi"].toArray();
+    int nrLifturi = lifturiArray.size();
+
+    // punem valorile in UI
+    ui.spinEtaje->setValue(nrEtaje);
+    ui.spinLifturi->setValue(nrLifturi);
+
+    // selectam lifturile
+    for (int i = 0; i < nrLifturi; ++i) {
+        QComboBox* combo = qobject_cast<QComboBox*>(ui.tableLifturi->cellWidget(i, 1));
+        if (combo) {
+            QString tipLift = lifturiArray[i].toString();
+            combo->setCurrentText(tipLift);
+        }
+    }
+
+    on_btnGenerare_clicked();
+
+    // adaugam obiectele si pasagerii
+    QJsonArray obiecteArray = rootObj["obiecte"].toArray();
+
+    for (int i = 0; i < obiecteArray.size(); ++i) {
+        QJsonObject obj = obiecteArray[i].toObject();
+
+        QString tipStr = obj["tip"].toString();
+        int start = obj["start"].toInt();
+        int dest = obj["dest"].toInt();
+        double weight = obj["greutate"].toDouble();
+
+        QString infoPasager;
+        QString emoji;
+        std::shared_ptr<ITransportable> itemNou = nullptr;
+
+        if (tipStr == "Standard") {
+            std::string nume = obj["nume"].toString().toStdString();
+            itemNou = std::make_shared<StandardPassenger>(nume, weight, start, dest);
+            infoPasager = QString::fromStdString(nume);
+            emoji = "👤";
+        }
+        else if (tipStr == "VIP") {
+            std::string nume = obj["nume"].toString().toStdString();
+            int priority = obj["prioritate"].toInt();
+            itemNou = std::make_shared<VIPPassenger>(nume, weight, start, dest, priority);
+            infoPasager = QString::fromStdString(nume) + " (VIP)";
+            emoji = "🌟";
+        }
+        else if (tipStr == "Cargo") {
+            bool fragile = obj["fragil"].toBool();
+            itemNou = std::make_shared<CargoBox>(weight, fragile, start, dest);
+            infoPasager = "Cargo" + QString(fragile ? " [!]" : "");
+            emoji = "📦";
+        }
+
+        if (itemNou) {
+            cladire->getFloors()[start].addPassenger(itemNou);
+
+            QLabel* pLabel = new QLabel(emoji + " " + infoPasager + " -> " + QString::number(dest));
+            QString stil = "font-weight: bold; border-radius: 5px; padding: 2px; ";
+
+            if (emoji == "🌟") {
+                stil += "color: #f1c40f; background-color: rgba(44, 62, 80, 220); border: 2px solid gold;";
+            }
+            else if (emoji == "📦") {
+                stil += "color: #ecf0f1; background-color: #d35400; border: 1px solid white;";
+            }
+            else {
+                stil += "color: #f1c40f; background-color: rgba(44, 62, 80, 200); border: 1px solid #f39c12;";
+            }
+
+            pLabel->setStyleSheet(stil);
+
+            if (!waitingAreas.isEmpty() && start < waitingAreas[0].size()) {
+                waitingAreas[0][start]->addWidget(pLabel);
+            }
+        }
+    }
+
+    QMessageBox::information(this, "Succes", "Scenariul a fost incarcat cu succes!");
 }

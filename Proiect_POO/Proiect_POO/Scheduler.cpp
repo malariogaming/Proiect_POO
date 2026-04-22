@@ -31,34 +31,51 @@ void Scheduler::destroyInstance()
 BaseElevator* Scheduler::calculateNearestCar(int targetFloor, double requiredWeight, const std::vector<std::shared_ptr<BaseElevator>>& elevators)
 {
     BaseElevator* bestCar = nullptr;
-    int minDistance = 999999999;
+    int minScore = 999999;
 
     for (const auto& elev : elevators) {
         if (elev->getStatus() == ElevatorStatus::OUT_OF_SERVICE) continue;
 
-        if (elev->getMaxWeight() < requiredWeight) continue;
+        // 1. VERIFICARE CAPACITATE CURENTA
+        if (elev->getCurrentWeight() + requiredWeight > elev->getMaxWeight()) continue;
 
-        int dist = std::abs(elev->getCurrentFloor() - targetFloor);
-        int penalty = 0;
+        int currentFloor = elev->getCurrentFloor();
+        int dist = std::abs(currentFloor - targetFloor);
+        int score = dist;
 
-        if (elev->getStatus() == ElevatorStatus::MOVING_UP && targetFloor < elev->getCurrentFloor()) {
-            penalty = 10;
+        // 2. LOGICA DE DIRECTIE
+        bool isMovingUp = (elev->getStatus() == ElevatorStatus::MOVING_UP);
+        bool isMovingDown = (elev->getStatus() == ElevatorStatus::MOVING_DOWN);
+
+        if (isMovingUp) {
+            if (targetFloor > currentFloor) {
+                // e in drumul nostru
+                score -= 2;
+            }
+            else {
+                // nu e in drumul nostru, ci trebuie sa se intoarca
+                score += (elev->getMaxDestination() - currentFloor) + (elev->getMaxDestination() - targetFloor);
+            }
         }
-        else if (elev->getStatus() == ElevatorStatus::MOVING_DOWN && targetFloor > elev->getCurrentFloor()) {
-            penalty = 10;
-        }
-        else if (elev->getStatus() != ElevatorStatus::IDLE) {
-            penalty = -1;
+        else if (isMovingDown) {
+            if (targetFloor < currentFloor) {
+                // e in drumul nostru
+                score -= 2;
+            }
+            else {
+                // nu e in drumul nostru, ci trebuie sa se intoarca
+                score += (currentFloor - elev->getMinDestination()) + (targetFloor - elev->getMinDestination());
+            }
         }
 
-        dist = dist + penalty;
+        // 3. PENALIZARE PENTRU AGLOMERATIE
+        score += (elev->getCargo().size() * 1);
 
-        if (dist < minDistance) {
-            minDistance = dist;
-            bestCar = elev.get();
+        if (score < minScore) {
+            minScore = score;
+            bestCar = elev.get(); // bestCar este un pointer simplu, dar elev este un std::shared_ptr, deci avem nevoie de .get() aici
         }
     }
-
     return bestCar;
 }
 

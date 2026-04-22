@@ -6,6 +6,12 @@
 #include <QVector>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QFileDialog>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QMessageBox>
 #include "ui_MainWindow.h"
 #include "AddPassengerDialog.h"
 
@@ -36,6 +42,7 @@ private slots:
 	void on_btnReset_clicked();
 	void on_btnUrgenta_clicked();
 	void on_btnRandomizeaza_clicked();
+	void on_btnLoadFile_clicked();
 
 private:
 	Ui::MainWindowClass ui;

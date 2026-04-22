@@ -92,6 +92,37 @@ double BaseElevator::getMaxWeight()
 	return this->maxWeight;
 }
 
+double BaseElevator::getCurrentWeight()
+{
+	return this->currentWeight;
+}
+
+int BaseElevator::getMaxDestination()
+{
+	if (cargo.empty()) return currentFloor;
+
+	int maxD = currentFloor;
+	for (const auto& item : cargo) {
+		if (item->getDestination() > maxD) {
+			maxD = item->getDestination();
+		}
+	}
+	return maxD;
+}
+
+int BaseElevator::getMinDestination()
+{
+	if (cargo.empty()) return currentFloor;
+
+	int minD = currentFloor;
+	for (const auto& item : cargo) {
+		if (item->getDestination() < minD) {
+			minD = item->getDestination();
+		}
+	}
+	return minD;
+}
+
 void BaseElevator::setStatus(ElevatorStatus status)
 {
 	this->status = status;

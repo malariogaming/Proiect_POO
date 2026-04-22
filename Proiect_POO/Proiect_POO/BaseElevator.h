@@ -50,4 +50,8 @@ public:
     void clearCargo();
 
     double getMaxWeight();
+    double getCurrentWeight();
+    
+    int getMaxDestination();
+    int getMinDestination();
 };
