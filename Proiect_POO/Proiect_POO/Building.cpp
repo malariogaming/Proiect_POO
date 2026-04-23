@@ -14,6 +14,7 @@ Building& Building::operator+=(std::shared_ptr<BaseElevator> elevator)
 		elevators.push_back(elevator);
 		std::cout << "[Building] Liftul ID " << elevator->getId() << " a fost adaugat in sistem" << std::endl;
 	}
+
 	return *this;
 }
 
